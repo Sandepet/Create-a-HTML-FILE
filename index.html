@@ -35,7 +35,7 @@
 
         .subtitle {
             color: #666;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
         }
 
         .stats {
@@ -78,7 +78,6 @@
             border: 2px solid #ddd;
             border-radius: 8px;
             font-size: 16px;
-            transition: border-color 0.3s;
         }
 
         #taskInput:focus {
@@ -94,7 +93,6 @@
             border-radius: 8px;
             font-size: 16px;
             cursor: pointer;
-            transition: background 0.3s;
         }
 
         button:hover {
@@ -113,11 +111,6 @@
             background: #f8f9fa;
             border-radius: 8px;
             margin-bottom: 10px;
-            transition: background 0.2s;
-        }
-
-        .task-item:hover {
-            background: #f0f1f3;
         }
 
         .task-checkbox {
@@ -185,29 +178,20 @@
 
         .instructions li {
             margin-bottom: 5px;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        .instructions li:before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: #667eea;
-            font-weight: bold;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>My Task Manager</h1>
-        <p class="subtitle">Stay organized and productive!</p>
+        <h1>📝 My Task Manager ✅</h1>
+        <p class="subtitle">Stay organized and productive! 🚀</p>
+        <p class="subtitle"><em>Icon update from branch: <strong>test-icons</strong></em></p>
 
         <!-- Stats -->
         <div class="stats">
             <div class="stats-text">
                 <span><strong id="completedCount">0</strong> of <strong id="totalCount">0</strong> tasks completed</span>
-                <span style="color: #667eea; font-weight: bold;"><span id="percentage">0</span>%</span>
+                <span style="color: #667eea; font-weight: bold;">📊 <span id="percentage">0</span>%</span>
             </div>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressBar"></div>
@@ -225,17 +209,17 @@
 
         <!-- Clear Completed Button -->
         <button class="clear-completed" id="clearBtn" style="display: none;" onclick="clearCompleted()">
-            Clear completed tasks
+            🧹 Clear completed tasks
         </button>
 
         <!-- Instructions -->
         <div class="instructions">
-            <h3>How to use:</h3>
+            <h3>📌 How to use:</h3>
             <ul>
-                <li>Type a task and press Enter or click Add</li>
-                <li>Check the box to mark tasks as complete</li>
-                <li>Click Delete to remove tasks</li>
-                <li>Track your progress with the bar above</li>
+                <li>⌨️ Type a task and press Enter or click Add</li>
+                <li>☑️ Check the box to mark tasks as complete</li>
+                <li>🗑️ Click Delete to remove tasks</li>
+                <li>📊 Track your progress with the bar above</li>
             </ul>
         </div>
     </div>
@@ -246,28 +230,20 @@
         function renderTasks() {
             const taskList = document.getElementById('taskList');
             const clearBtn = document.getElementById('clearBtn');
-            
+
             if (tasks.length === 0) {
-                taskList.innerHTML = '<div class="empty-state">No tasks yet. Add one above to get started!</div>';
+                taskList.innerHTML = '<div class="empty-state">📭 No tasks yet. Add one above to get started!</div>';
                 clearBtn.style.display = 'none';
             } else {
                 taskList.innerHTML = tasks.map((task, index) => `
                     <li class="task-item">
-                        <input type="checkbox" class="task-checkbox" 
-                               ${task.completed ? 'checked' : ''} 
+                        <input type="checkbox" class="task-checkbox"
+                               ${task.completed ? 'checked' : ''}
                                onchange="toggleTask(${index})">
                         <span class="task-text ${task.completed ? 'completed' : ''}">${task.text}</span>
-                        <button class="delete-btn" onclick="deleteTask(${index})">Delete</button>
+                        <button class="delete-btn" onclick="deleteTask(${index})">🗑️ Delete</button>
                     </li>
                 `).join('');
-
-                const completedCount = tasks.filter(t => t.completed).length;
-                if (completedCount > 0) {
-                    clearBtn.style.display = 'block';
-                    clearBtn.textContent = `Clear ${completedCount} completed task${completedCount !== 1 ? 's' : ''}`;
-                } else {
-                    clearBtn.style.display = 'none';
-                }
             }
 
             updateStats();
@@ -289,7 +265,7 @@
             const text = input.value.trim();
 
             if (text) {
-                tasks.push({ text: text, completed: false });
+                tasks.push({ text, completed: false });
                 input.value = '';
                 renderTasks();
             }
@@ -310,14 +286,12 @@
             renderTasks();
         }
 
-        // Allow Enter key to add task
         document.getElementById('taskInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 addTask();
             }
         });
 
-        // Initial render
         renderTasks();
     </script>
 </body>
